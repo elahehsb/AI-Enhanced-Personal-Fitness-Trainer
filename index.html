@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Fitness Trainer</title>
+    <script>
+        async function sendWorkout(intensity) {
+            const response = await fetch('/workout', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({intensity: intensity})
+            });
+            const data = await response.json();
+            document.getElementById('state').innerText = JSON.stringify(data);
+        }
+
+        async function sendNutrition(quality) {
+            const response = await fetch('/nutrition', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({quality: quality})
+            });
+            const data = await response.json();
+            document.getElementById('state').innerText = JSON.stringify(data);
+        }
+    </script>
+</head>
+<body>
+    <h1>AI Fitness Trainer</h1>
+    <button onclick="sendWorkout(10)">Intense Workout</button>
+    <button onclick="sendWorkout(5)">Moderate Workout</button>
+    <button onclick="sendWorkout(1)">Light Workout</button>
+    <br>
+    <button onclick="sendNutrition(10)">High Nutrition</button>
+    <button onclick="sendNutrition(5)">Moderate Nutrition</button>
+    <button onclick="sendNutrition(1)">Low Nutrition</button>
+    <h2>Current State:</h2>
+    <pre id="state">{"fitness_level": 50, "nutrition_score": 50, "recovery_score": 50}</pre>
+</body>
+</html>
